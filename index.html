@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <!-- Nama Tab sesuai permintaan -->
+    <!-- Nama Tab Sesuai Permintaan -->
     <title>REFORMAT by IRS</title>
     
     <!-- Google Fonts -->
@@ -18,151 +18,153 @@
     <style>
         .font-share { font-family: 'Share Tech', sans-serif; }
         
-        /* Custom Scrollbar untuk Terminal Log */
-        .custom-scrollbar::-webkit-scrollbar { width: 8px; }
-        .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
-        .custom-scrollbar::-webkit-scrollbar-thumb { background: #64748b; border-radius: 0; }
-        .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #475569; }
-
-        /* KANVAS: Background Biru Sangat Muda & Pattern Grid (Mirip REFORNAM) */
+        /* KANVAS KOTAK-KOTAK BIRU MUDA (Ala REFORNAM) & KUNCI LAYAR */
         body {
-            background-color: #f4f9ff; /* Biru muda yg muda banget */
+            background-color: #f0f7ff; /* Biru sangat muda yang elegan */
             background-image: 
-                linear-gradient(rgba(37, 99, 235, 0.06) 1px, transparent 1px), 
-                linear-gradient(90deg, rgba(37, 99, 235, 0.06) 1px, transparent 1px);
+                linear-gradient(rgba(59, 130, 246, 0.07) 1px, transparent 1px), 
+                linear-gradient(90deg, rgba(59, 130, 246, 0.07) 1px, transparent 1px);
             background-size: 20px 20px;
-            
-            /* KUNCI UTAMA: Mematikan pergerakan atas-bawah layar secara global */
-            overflow: hidden; 
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            min-height: 100dvh;
-            margin: 0;
-            padding: 15px;
+            overflow: hidden; /* Mengunci total pergerakan atas-bawah */
         }
 
-        /* Hapus lengkungan agar seragam gaya Kotak Tajam */
-        .kotak-tegas { border-radius: 0 !important; }
+        /* Custom Scrollbar untuk Terminal */
+        .custom-scrollbar::-webkit-scrollbar { width: 6px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #475569; border-radius: 4px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #64748b; }
     </style>
 </head>
-<body class="text-slate-800 font-share selection:bg-blue-500/30">
+<!-- Menggunakan h-[100dvh] untuk mengunci layar penuh tanpa scroll bar luar -->
+<body class="h-[100dvh] text-slate-800 font-share selection:bg-indigo-500/30 flex flex-col relative">
 
-    <!-- Pembungkus Utama agar sejajar ke tengah -->
-    <div class="w-full max-w-[600px] flex flex-col gap-2">
-        
-        <!-- Header / Title Card -->
-        <div class="bg-white border-2 border-[#d1d5db] p-4 shadow-sm flex justify-between items-center kotak-tegas relative z-10 w-full">
-            <div class="flex items-center gap-3">
-                <i data-lucide="terminal-square" class="w-8 h-8 text-blue-600"></i>
-                <h1 class="text-[36px] font-bold tracking-widest text-blue-600 leading-none m-0 uppercase">REFORMAT</h1>
-            </div>
-            <div class="flex flex-col items-end justify-center font-bold tracking-widest leading-none">
-                <span id="clock" class="text-slate-800 text-[22px] leading-tight">00:00:00</span>
-                <span id="dateDisplay" class="text-slate-500 text-xs leading-tight mt-0.5">00/00/0000</span>
-            </div>
+    <!-- Sticky Header -->
+    <header class="fixed top-0 left-0 w-full bg-white border-b border-slate-200 shadow-sm z-50 p-4 flex items-center justify-between h-16">
+        <div class="flex items-center gap-3">
+            <i data-lucide="terminal-square" class="w-7 h-7 text-indigo-600"></i>
+            <h1 class="text-3xl font-bold tracking-widest text-indigo-900 leading-none">
+                REFORMAT
+            </h1>
         </div>
+        <div class="flex flex-col items-end justify-center font-bold tracking-widest leading-none">
+            <span id="clock" class="text-indigo-600 text-[18px] leading-tight">00:00:00</span>
+            <span id="dateDisplay" class="text-slate-400 text-xs leading-tight mt-0.5">00/00/0000</span>
+        </div>
+    </header>
 
-        <!-- Main Content Card - TINGGI DIKUNCI (FIXED HEIGHT) 580px -->
-        <div class="bg-white border-2 border-[#d1d5db] shadow-xl p-5 w-full h-[580px] flex flex-col relative z-10 kotak-tegas">
+    <!-- Main Content Wrapper: Dikunci di tengah layar untuk mencegah pergerakan -->
+    <div class="mt-16 flex-1 flex flex-col justify-center items-center p-3 w-full max-w-2xl mx-auto h-full">
+
+        <!-- Kontainer Lebar Penuh dalam max-w-2xl -->
+        <div class="w-full space-y-3">
             
             <!-- Top Link Buttons -->
-            <div class="flex gap-3 mb-4">
-                <a href="https://lynk.id/isaproject" target="_blank" rel="noopener noreferrer" class="flex-1 flex items-center justify-center gap-2 bg-white border-2 border-slate-300 text-slate-700 h-[40px] hover:bg-blue-50 hover:text-blue-700 hover:border-blue-300 transition-all font-bold tracking-widest text-sm kotak-tegas">
-                    <i data-lucide="briefcase" class="w-4 h-4 text-blue-500"></i> MY PROJECT
+            <div class="flex gap-3">
+                <a href="https://lynk.id/isaproject" target="_blank" rel="noopener noreferrer" class="flex-1 flex items-center justify-center gap-2 bg-white border border-slate-300 text-slate-700 py-2 rounded hover:bg-indigo-50 hover:text-indigo-700 hover:border-indigo-300 transition-all font-bold tracking-widest text-sm shadow-sm group">
+                    <i data-lucide="briefcase" class="w-4 h-4 text-indigo-500 group-hover:scale-110 transition-transform"></i>
+                    MY PROJECT
                 </a>
-                <a href="https://lynk.id/isaproject/0581ez0729vx" target="_blank" rel="noopener noreferrer" class="flex-1 flex items-center justify-center gap-2 bg-white border-2 border-slate-300 text-slate-700 h-[40px] hover:bg-amber-50 hover:text-amber-700 hover:border-amber-300 transition-all font-bold tracking-widest text-sm kotak-tegas">
-                    <i data-lucide="coffee" class="w-4 h-4 text-amber-500"></i> SUPPORT
+                <a href="https://lynk.id/isaproject/0581ez0729vx" target="_blank" rel="noopener noreferrer" class="flex-1 flex items-center justify-center gap-2 bg-white border border-slate-300 text-slate-700 py-2 rounded hover:bg-amber-50 hover:text-amber-700 hover:border-amber-300 transition-all font-bold tracking-widest text-sm shadow-sm group">
+                    <i data-lucide="coffee" class="w-4 h-4 text-amber-500 group-hover:scale-110 transition-transform"></i>
+                    SUPPORT
                 </a>
             </div>
 
-            <!-- Folder Inputs -->
-            <div class="flex flex-col gap-3 mb-4">
-                <!-- Source -->
-                <div class="space-y-1">
-                    <label class="text-[13px] font-bold text-blue-600 tracking-widest uppercase">Folder Asal</label>
-                    <div class="flex gap-2 h-[40px]">
-                        <div id="sourcePath" class="flex-1 bg-slate-50 border-2 border-slate-300 flex items-center px-3 text-sm text-slate-600 truncate font-bold kotak-tegas" title="Belum dipilih">Belum ada folder terpilih...</div>
-                        <button id="btnBrowseSource" onclick="selectSourceFolder()" class="bg-blue-600 text-white px-5 hover:bg-blue-700 transition-colors flex items-center gap-2 font-bold tracking-widest text-sm disabled:opacity-50 kotak-tegas shadow-[0_3px_0_rgba(0,0,0,0.2)] active:translate-y-[2px] active:shadow-none border-none">
-                            PILIH
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Destination -->
-                <div class="space-y-1">
-                    <label class="text-[13px] font-bold text-blue-600 tracking-widest uppercase">Folder Tujuan</label>
-                    <div class="flex gap-2 h-[40px]">
-                        <div id="destPath" class="flex-1 bg-slate-50 border-2 border-slate-300 flex items-center px-3 text-sm text-slate-600 truncate font-bold kotak-tegas" title="Belum dipilih">Belum ada folder terpilih...</div>
-                        <button id="btnBrowseDest" onclick="selectDestFolder()" class="bg-blue-600 text-white px-5 hover:bg-blue-700 transition-colors flex items-center gap-2 font-bold tracking-widest text-sm disabled:opacity-50 kotak-tegas shadow-[0_3px_0_rgba(0,0,0,0.2)] active:translate-y-[2px] active:shadow-none border-none">
-                            PILIH
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Config Grid -->
-            <div class="grid grid-cols-5 gap-3 mb-4">
-                <div class="col-span-2">
-                    <label class="block text-[13px] text-blue-600 uppercase tracking-widest mb-1 font-bold">Ubah Menjadi:</label>
-                    <div class="flex relative">
-                        <span class="absolute left-3 top-1/2 -translate-y-1/2 text-blue-600 font-bold">.</span>
-                        <input type="text" id="targetExtension" oninput="validateStart()" placeholder="csv, txt, md" class="w-full pl-6 bg-slate-50 border-2 border-slate-300 text-slate-800 focus:border-blue-500 block px-2 outline-none uppercase text-sm h-[40px] font-bold kotak-tegas">
-                    </div>
-                </div>
-
-                <div class="col-span-3">
-                    <label class="block text-[13px] text-blue-600 uppercase tracking-widest mb-1 font-bold">Metode:</label>
-                    <div class="flex gap-2 h-[40px]">
-                        <button id="btnModeCopy" onclick="setOperation('copy')" class="flex-1 flex items-center justify-center gap-2 text-[13px] transition-colors border-2 bg-blue-50 border-blue-500 text-blue-700 font-bold kotak-tegas">
-                            SALIN
-                        </button>
-                        <button id="btnModeMove" onclick="setOperation('move')" class="flex-1 flex items-center justify-center gap-2 text-[13px] transition-colors border-2 bg-slate-50 border-slate-300 text-slate-600 hover:bg-white font-bold kotak-tegas">
-                            PINDAH
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Action Buttons -->
-            <!-- mt-auto akan menempelkannya secara dinamis tanpa merubah tinggi utama -->
-            <div class="flex gap-2 h-[45px] mb-4 mt-auto">
-                <button id="btnStart" onclick="handleStart()" disabled class="flex-1 flex items-center justify-center gap-1.5 text-white bg-blue-600 hover:bg-blue-700 transition-all font-bold tracking-widest disabled:opacity-50 disabled:bg-slate-400 text-[15px] shadow-[0_4px_0_rgba(0,0,0,0.2)] active:translate-y-[2px] active:shadow-none kotak-tegas border-none">
-                    START
-                </button>
+            <!-- Main Single Card Container -->
+            <div class="bg-white border border-slate-200 rounded-md shadow-lg p-5 space-y-4">
                 
-                <button id="btnPause" onclick="handlePauseResume()" disabled class="flex-1 flex items-center justify-center gap-1.5 text-white bg-amber-500 hover:bg-amber-600 transition-all font-bold tracking-widest disabled:opacity-50 disabled:bg-slate-400 text-[15px] shadow-[0_4px_0_#b45309] active:translate-y-[2px] active:shadow-none kotak-tegas border-none">
-                    <span id="textPause">PAUSE</span>
-                </button>
+                <!-- 1. Bagian Folder Input -->
+                <div class="space-y-3">
+                    <!-- Folder Asal Row -->
+                    <div class="space-y-1">
+                        <label class="text-xs font-bold text-slate-500 tracking-widest">FOLDER ASAL</label>
+                        <div class="flex gap-2 h-[38px]">
+                            <div id="sourcePath" class="flex-1 bg-slate-50 border border-slate-300 rounded flex items-center px-3 text-sm text-slate-600 truncate" title="Belum dipilih">
+                                Belum ada folder terpilih...
+                            </div>
+                            <button id="btnBrowseSource" onclick="selectSourceFolder()" class="bg-white border border-indigo-300 text-indigo-600 px-4 rounded hover:bg-indigo-50 transition-colors flex items-center gap-2 font-bold tracking-widest text-sm disabled:opacity-50">
+                                <i data-lucide="folder-open" class="w-4 h-4"></i> PILIH
+                            </button>
+                        </div>
+                    </div>
 
-                <button id="btnStop" onclick="handleStop()" disabled class="flex-1 flex items-center justify-center gap-1.5 text-white bg-red-500 hover:bg-red-600 transition-all font-bold tracking-widest disabled:opacity-50 disabled:bg-slate-400 text-[15px] shadow-[0_4px_0_#b91c1c] active:translate-y-[2px] active:shadow-none kotak-tegas border-none">
-                    STOP
-                </button>
-            </div>
-
-            <!-- Terminal Logs -->
-            <div>
-                <div class="flex justify-between items-end mb-1.5">
-                    <label class="text-[13px] font-bold text-blue-600 tracking-widest uppercase">Logs Aktivitas</label>
-                    <div class="flex gap-4">
-                        <button id="btnCopyLog" onclick="copyLogs()" disabled class="text-[11px] font-bold text-blue-600 hover:text-blue-800 transition-colors uppercase tracking-widest disabled:opacity-50 underline">
-                            Copy Logs
-                        </button>
-                        <button id="btnClearLog" onclick="clearLogs()" disabled class="text-[11px] font-bold text-blue-600 hover:text-blue-800 transition-colors uppercase tracking-widest disabled:opacity-50 underline">
-                            Clear Logs
-                        </button>
+                    <!-- Folder Tujuan Row -->
+                    <div class="space-y-1">
+                        <label class="text-xs font-bold text-slate-500 tracking-widest">FOLDER TUJUAN</label>
+                        <div class="flex gap-2 h-[38px]">
+                            <div id="destPath" class="flex-1 bg-slate-50 border border-slate-300 rounded flex items-center px-3 text-sm text-slate-600 truncate" title="Belum dipilih">
+                                Belum ada folder terpilih...
+                            </div>
+                            <button id="btnBrowseDest" onclick="selectDestFolder()" class="bg-white border border-emerald-300 text-emerald-600 px-4 rounded hover:bg-emerald-50 transition-colors flex items-center gap-2 font-bold tracking-widest text-sm disabled:opacity-50">
+                                <i data-lucide="folder-output" class="w-4 h-4"></i> PILIH
+                            </button>
+                        </div>
                     </div>
                 </div>
-                
-                <!-- Tinggi logs dikurangi jadi 110px agar pas sempurna dengan fixed height -->
-                <div id="logPanel" class="h-[110px] bg-[#111827] border-2 border-slate-300 p-3 font-mono text-[11px] overflow-y-auto custom-scrollbar relative shadow-inner tracking-wider kotak-tegas">
-                    <div id="emptyLog" class="text-slate-500 absolute inset-0 flex items-center justify-center tracking-widest text-[12px]">
-                        SISTEM SIAP...
-                    </div>
-                    <div id="logContent" class="space-y-1"></div>
-                </div>
-            </div>
 
+                <!-- 2. Pengaturan Ekstensi & Metode -->
+                <div class="grid grid-cols-5 gap-3 pt-1">
+                    <div class="col-span-2">
+                        <label class="block text-[11px] text-slate-500 uppercase tracking-widest mb-1.5 font-bold">Ubah format:</label>
+                        <div class="flex relative">
+                            <span class="absolute left-3 top-1/2 -translate-y-1/2 text-indigo-600 font-bold">.</span>
+                            <!-- PENAMBAHAN: Fungsi oninput untuk MEMAKSA huruf kecil saat itu juga -->
+                            <input type="text" id="targetExtension" oninput="this.value = this.value.toLowerCase().replace(/[^a-z0-9]/g, ''); validateStart()" placeholder="jpg, csv, txt" class="w-full pl-6 bg-slate-50 border border-slate-300 text-slate-800 rounded focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500 block p-2 outline-none text-sm h-[38px]">
+                        </div>
+                    </div>
+
+                    <div class="col-span-3">
+                        <label class="block text-[11px] text-slate-500 uppercase tracking-widest mb-1.5 font-bold">Metode:</label>
+                        <div class="flex gap-2 h-[38px]">
+                            <button id="btnModeCopy" onclick="setOperation('copy')" class="flex-1 flex items-center justify-center gap-2 rounded text-xs transition-colors border bg-indigo-50 border-indigo-300 text-indigo-700 font-bold shadow-sm">
+                                <i data-lucide="copy" class="w-3.5 h-3.5"></i> SALIN
+                            </button>
+                            <button id="btnModeMove" onclick="setOperation('move')" class="flex-1 flex items-center justify-center gap-2 rounded text-xs transition-colors border bg-slate-50 border-slate-300 text-slate-600 hover:bg-white shadow-sm">
+                                <i data-lucide="arrow-right-left" class="w-3.5 h-3.5"></i> PINDAH
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 3. Action Buttons -->
+                <div class="flex gap-2 h-11 pt-1">
+                    <button id="btnStart" onclick="handleStart()" disabled class="flex-1 flex items-center justify-center gap-1.5 text-white bg-indigo-600 rounded hover:bg-indigo-700 transition-all font-bold tracking-widest disabled:opacity-50 disabled:bg-slate-400 text-sm shadow-md">
+                        <i data-lucide="play" class="w-5 h-5 fill-current"></i> START
+                    </button>
+                    
+                    <button id="btnPause" onclick="handlePauseResume()" disabled class="flex-1 flex items-center justify-center gap-1.5 text-slate-700 bg-white border border-slate-300 rounded hover:bg-slate-50 transition-all font-bold tracking-widest disabled:opacity-50 disabled:text-slate-400 text-sm shadow-sm">
+                        <i id="iconPause" data-lucide="pause" class="w-5 h-5"></i> <span id="textPause">PAUSE</span>
+                    </button>
+
+                    <button id="btnStop" onclick="handleStop()" disabled class="flex-1 flex items-center justify-center gap-1.5 text-red-600 bg-white border border-red-200 rounded hover:bg-red-50 transition-all font-bold tracking-widest disabled:opacity-50 disabled:border-slate-300 disabled:text-slate-400 text-sm shadow-sm">
+                        <i data-lucide="square" class="w-5 h-5 fill-current"></i> STOP
+                    </button>
+                </div>
+
+                <!-- 4. Terminal Logs Section -->
+                <div class="pt-1">
+                    <div class="flex justify-between items-end mb-1.5 px-1">
+                        <label class="text-xs font-bold text-slate-500 tracking-widest">LOGS AKTIVITAS</label>
+                        <div class="flex gap-4">
+                            <button id="btnCopyLog" onclick="copyLogs()" disabled class="text-[11px] font-bold text-slate-400 hover:text-indigo-600 transition-colors uppercase tracking-widest disabled:opacity-50">
+                                Salin Logs
+                            </button>
+                            <button id="btnClearLog" onclick="clearLogs()" disabled class="text-[11px] font-bold text-slate-400 hover:text-red-600 transition-colors uppercase tracking-widest disabled:opacity-50">
+                                Hapus Logs
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- PENYUSUTAN TINGGI LOGS: diubah menjadi h-[110px] agar pas & tidak goyang -->
+                    <div id="logPanel" class="h-[110px] bg-slate-900 border border-slate-800 rounded p-3 font-share text-xs overflow-y-auto custom-scrollbar relative shadow-inner tracking-wider">
+                        <div id="emptyLog" class="text-slate-500 absolute inset-0 flex items-center justify-center tracking-widest text-sm">
+                            SISTEM SIAP...
+                        </div>
+                        <div id="logContent" class="space-y-1"></div>
+                    </div>
+                </div>
+
+            </div>
         </div>
     </div>
 
@@ -175,8 +177,9 @@
         let sourceFiles = [];
         let operationType = 'copy';
         let processState = 'idle'; 
+        let logsCount = 0;
 
-        // Update Jam & Waktu
+        // Jam & Waktu
         function updateClock() {
             const now = new Date();
             const h = String(now.getHours()).padStart(2, '0');
@@ -192,7 +195,7 @@
         setInterval(updateClock, 1000);
         updateClock();
 
-        // Engine Logs
+        // Fungsi Logs
         function addLog(message, type = 'info') {
             document.getElementById('emptyLog').style.display = 'none';
             document.getElementById('btnCopyLog').disabled = false;
@@ -212,8 +215,8 @@
             div.innerHTML = `<span class="text-slate-500 opacity-70">[${time}]</span> ${message}`;
             
             logContent.appendChild(div);
-            // Auto scroll yang tidak mempengaruhi body utama
             logPanel.scrollTop = logPanel.scrollHeight;
+            logsCount++;
         }
 
         function clearLogs() {
@@ -221,6 +224,7 @@
             document.getElementById('emptyLog').style.display = 'flex';
             document.getElementById('btnCopyLog').disabled = true;
             document.getElementById('btnClearLog').disabled = true;
+            logsCount = 0;
         }
 
         function copyLogs() {
@@ -232,7 +236,7 @@
             });
         }
 
-        // Mode: Copy / Move
+        // Mode Operasi
         function setOperation(type) {
             if(processState === 'running') return;
             operationType = type;
@@ -240,15 +244,15 @@
             const btnMove = document.getElementById('btnModeMove');
 
             if(type === 'copy') {
-                btnCopy.className = "flex-1 flex items-center justify-center gap-2 text-[13px] transition-colors border-2 bg-blue-50 border-blue-500 text-blue-700 font-bold kotak-tegas";
-                btnMove.className = "flex-1 flex items-center justify-center gap-2 text-[13px] transition-colors border-2 bg-slate-50 border-slate-300 text-slate-600 hover:bg-white font-bold kotak-tegas";
+                btnCopy.className = "flex-1 flex items-center justify-center gap-2 rounded text-xs transition-colors border bg-indigo-50 border-indigo-300 text-indigo-700 font-bold shadow-sm";
+                btnMove.className = "flex-1 flex items-center justify-center gap-2 rounded text-xs transition-colors border bg-slate-50 border-slate-300 text-slate-600 hover:bg-white shadow-sm";
             } else {
-                btnMove.className = "flex-1 flex items-center justify-center gap-2 text-[13px] transition-colors border-2 bg-orange-50 border-orange-500 text-orange-700 font-bold kotak-tegas";
-                btnCopy.className = "flex-1 flex items-center justify-center gap-2 text-[13px] transition-colors border-2 bg-slate-50 border-slate-300 text-slate-600 hover:bg-white font-bold kotak-tegas";
+                btnMove.className = "flex-1 flex items-center justify-center gap-2 rounded text-xs transition-colors border bg-orange-50 border-orange-300 text-orange-700 font-bold shadow-sm";
+                btnCopy.className = "flex-1 flex items-center justify-center gap-2 rounded text-xs transition-colors border bg-slate-50 border-slate-300 text-slate-600 hover:bg-white shadow-sm";
             }
         }
 
-        // Validasi Start Button
+        // Validasi Tombol Start
         function validateStart() {
             const ext = document.getElementById('targetExtension').value.trim();
             const btnStart = document.getElementById('btnStart');
@@ -259,7 +263,6 @@
             }
         }
 
-        // Kunci UI saat berjalan
         function updateUIState(state) {
             processState = state;
             const isRunning = state === 'running' || state === 'paused';
@@ -274,17 +277,21 @@
             document.getElementById('btnPause').disabled = !isRunning;
             document.getElementById('btnStop').disabled = !isRunning;
 
+            const iconPause = document.getElementById('iconPause');
             const textPause = document.getElementById('textPause');
             
             if (state === 'paused') {
+                iconPause.setAttribute('data-lucide', 'play');
                 textPause.innerText = 'RESUME';
             } else {
+                iconPause.setAttribute('data-lucide', 'pause');
                 textPause.innerText = 'PAUSE';
             }
+            lucide.createIcons();
             if(state === 'idle' || state === 'stopped') validateStart();
         }
 
-        // Sistem Genggam Folder Murni (API Native Chrome)
+        // Logika "Genggam Folder" 
         async function selectSourceFolder() {
             try {
                 sourceDirHandle = await window.showDirectoryPicker({ mode: 'readwrite' });
@@ -300,7 +307,7 @@
                 addLog(`Ditemukan ${sourceFiles.length} file di folder asal.`, 'success');
                 validateStart();
             } catch (error) {
-                addLog(`Akses Folder Asal dibatalkan/ditolak.`, 'error');
+                addLog(`Akses API Folder dibatalkan atau ditolak.`, 'error');
             }
         }
 
@@ -311,11 +318,11 @@
                 addLog(`Folder tujuan diatur ke: ${destHandle.name}`, 'success');
                 validateStart();
             } catch (error) {
-                addLog(`Akses Folder Tujuan dibatalkan/ditolak.`, 'error');
+                addLog(`Akses API Folder tujuan dibatalkan atau ditolak.`, 'error');
             }
         }
 
-        // Mesin Eksekusi File Langsung
+        // Eksekusi
         async function handleStart() {
             let extInput = document.getElementById('targetExtension').value.trim();
             if(!extInput.startsWith('.')) extInput = '.' + extInput;
@@ -331,7 +338,7 @@
                 }
 
                 if (processState === 'stopped') {
-                    addLog('Proses dihentikan oleh pengguna.', 'warning');
+                    addLog('Proses dihentikan.', 'warning');
                     break;
                 }
 
@@ -345,13 +352,11 @@
                     
                     const fileData = await fileItem.handle.getFile();
 
-                    // Tulis file ke destinasi
                     const newFileHandle = await destHandle.getFileHandle(newFileName, { create: true });
                     const writable = await newFileHandle.createWritable();
                     await writable.write(fileData);
                     await writable.close();
 
-                    // Eksekusi Pindah (Hapus aslinya)
                     if (operationType === 'move') {
                         await sourceDirHandle.removeEntry(fileItem.name);
                         addLog(`[${i + 1}/${totalFiles}] Dipindah & Asli dihapus: ${newFileName}`, 'success');
@@ -360,7 +365,7 @@
                     }
 
                 } catch (error) {
-                    addLog(`[${i + 1}/${totalFiles}] Gagal: ${fileItem.name} (${error.message})`, 'error');
+                    addLog(`[${i + 1}/${totalFiles}] Gagal memproses ${fileItem.name}: ${error.message}`, 'error');
                 }
             }
 
