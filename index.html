@@ -366,16 +366,17 @@
 
                 try {
                     addLog(`[${i + 1}/${totalFiles}] Memproses: ${fileItem.name} -> ${newFileName}...`);
-                    
-                    const fileData = await fileItem.handle.getFile();
-
+                
+                    const fileData = await fileItem.handle.getFile(); // Mengambil objek file asli
                     const newFileHandle = await destHandle.getFileHandle(newFileName, { create: true });
                     const writable = await newFileHandle.createWritable();
-                    await writable.write(fileData);
+
+                    await writable.write(fileData); 
                     await writable.close();
 
                     if (operationType === 'move') {
-                        await sourceDirHandle.removeEntry(fileItem.name);
+                        await sourceDirHandle.removeEntry(fileItem.name); // Hapus hanya setelah penulisan sukses
+
                         addLog(`[${i + 1}/${totalFiles}] Dipindah & Asli dihapus: ${newFileName}`, 'success');
                     } else {
                         addLog(`[${i + 1}/${totalFiles}] Disalin: ${newFileName}`, 'success');
