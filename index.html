@@ -136,7 +136,7 @@
                         <i id="iconPause" data-lucide="pause" class="w-5 h-5"></i> <span id="textPause">PAUSE</span>
                     </button>
 
-                    <button id="btnStop" onclick="handleStop()" disabled class="flex-1 flex items-center justify-center gap-1.5 text-red-600 bg-white border border-red-200 rounded hover:bg-red-50 transition-all font-bold tracking-widest disabled:opacity-50 disabled:border-slate-300 disabled:text-slate-400 text-sm shadow-sm">
+                    <button id="btnStop" onclick="handleStop()" disabled class="flex-1 flex items-center justify-center gap-1.5 text-white bg-red-600 rounded hover:bg-red-700 transition-all font-bold tracking-widest disabled:opacity-40 disabled:bg-slate-400 text-sm shadow-md">
                         <i data-lucide="square" class="w-5 h-5 fill-current"></i> STOP
                     </button>
                 </div>
@@ -404,6 +404,8 @@
 
         function handleStop() {
             updateUIState('stopped');
+            addLog("Sistem dihentikan oleh user.", "warning");
+            validateStart(); // Cek kelengkapan input untuk mengaktifkan START kembali
         }
     </script>
 </body>
