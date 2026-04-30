@@ -252,43 +252,60 @@
             }
         }
 
-        // Validasi Tombol Start
+
         function validateStart() {
             const ext = document.getElementById('targetExtension').value.trim();
             const btnStart = document.getElementById('btnStart');
-            if (sourceFiles.length > 0 && destHandle && ext !== '' && processState !== 'running') {
-                btnStart.disabled = false;
+    
+            // START aktif hanya jika: Folder Sumber ADA, Folder Tujuan ADA, Format TERISI, dan Proses sedang IDLE/STOP
+            if (sourceDirHandle && destHandle && ext !== '' && (processState === 'idle' || processState === 'stopped')) {
+            btnStart.disabled = false;
             } else {
-                btnStart.disabled = true;
-            }
+            btnStart.disabled = true;
+           }
         }
-
+        
         function updateUIState(state) {
             processState = state;
-            const isRunning = state === 'running' || state === 'paused';
-            
-            document.getElementById('btnBrowseSource').disabled = isRunning;
-            document.getElementById('btnBrowseDest').disabled = isRunning;
-            document.getElementById('targetExtension').disabled = isRunning;
-            document.getElementById('btnModeCopy').disabled = isRunning;
-            document.getElementById('btnModeMove').disabled = isRunning;
-            
-            document.getElementById('btnStart').disabled = isRunning;
-            document.getElementById('btnPause').disabled = !isRunning;
-            document.getElementById('btnStop').disabled = !isRunning;
+            const isRunning = state === 'running';
+            const isPaused = state === 'paused';
+            const isIdle = state === 'idle' || state === 'stopped';
+    
+           // Kunci semua input Folder & Format jika proses sedang berjalan atau dijeda
+           document.getElementById('btnBrowseSource').disabled = !isIdle;
+           document.getElementById('btnBrowseDest').disabled = !isIdle;
+           document.getElementById('targetExtension').disabled = !isIdle;
+    
+           // Tombol START: Hanya aktif jika IDLE dan input lengkap (cek lewat validateStart)
+           if (isIdle) {
+               validateStart();
+           } else {
+               document.getElementById('btnStart').disabled = true; 
+           }
+    
+           // Tombol PAUSE & STOP: Hanya aktif jika sedang jalan atau dijeda
+           document.getElementById('btnPause').disabled = isIdle;
+           document.getElementById('btnStop').disabled = isIdle;
 
-            const iconPause = document.getElementById('iconPause');
-            const textPause = document.getElementById('textPause');
-            
-            if (state === 'paused') {
-                iconPause.setAttribute('data-lucide', 'play');
-                textPause.innerText = 'RESUME';
-            } else {
-                iconPause.setAttribute('data-lucide', 'pause');
-                textPause.innerText = 'PAUSE';
-            }
-            lucide.createIcons();
-            if(state === 'idle' || state === 'stopped') validateStart();
+           const btnPause = document.getElementById('btnPause');
+           const iconPause = document.getElementById('iconPause');
+           const textPause = document.getElementById('textPause');
+    
+           if (state === 'paused') {
+              // Saat PAUSE: Tombol berubah jadi RESUME (Kuning)
+              btnPause.classList.remove('bg-emerald-500', 'hover:bg-emerald-600');
+              btnPause.classList.add('bg-orange-500', 'hover:bg-orange-600');
+              iconPause.setAttribute('data-lucide', 'play');
+              textPause.innerText = 'RESUME';
+          } else {
+              // Saat RUNNING: Tombol kembali jadi PAUSE (Hijau)
+              btnPause.classList.remove('bg-orange-500', 'hover:bg-orange-600');
+              btnPause.classList.add('bg-emerald-500', 'hover:bg-emerald-600');
+              iconPause.setAttribute('data-lucide', 'pause');
+              textPause.innerText = 'PAUSE';
+          }
+    
+          lucide.createIcons();
         }
 
         // Logika "Genggam Folder" 
